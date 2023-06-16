@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .container {
+          text-align: center;
+          padding-top: 50px;
+          background-color: rgb(86, 83, 83);
+          width: 50%;
+          height:180px;
+          margin-top: 230px;
+          margin-left: 310px;
+        }
+        .container h1{
+            color:white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        button{
+            border: none;
+            height:50px;
+            width:100px;
+            border-radius: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+      
+        </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="timer">00:00:00</h1>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+      </div>
+
+    <script>
+           var startTime, elapsedTime, timerInterval;
+    var timerElement = document.getElementById("timer");
+
+    function startTimer() {
+      if (!timerInterval) {
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(updateTimer, 10);
+      }
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function resetTimer() {
+      
+      clearInterval(timerInterval);
+      timerInterval = null;
+      elapsedTime = 0;
+    
+      timerElement.textContent = "00:00:00";
+    }
+
+    function updateTimer() {
+
+      var currentTime = Date.now() - startTime;
+      elapsedTime = currentTime;
+      var hours = Math.floor(elapsedTime / 3600000);
+      var minutes = Math.floor((elapsedTime % 3600000) / 60000);
+      var seconds = Math.floor((elapsedTime % 60000) / 1000);
+      var milliseconds = Math.floor((elapsedTime % 1000) / 10);
+      
+      timerElement.textContent = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + ":" + pad(milliseconds);
+    }
+
+    function pad(value) {
+      return value < 10 ? "0" + value : value;
+    }
+
+    </script>
+    
+</body>
+</html>
